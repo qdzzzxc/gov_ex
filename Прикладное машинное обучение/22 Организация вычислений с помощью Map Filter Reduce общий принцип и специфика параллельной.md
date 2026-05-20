@@ -1,7 +1,7 @@
 # Организация вычислений с помощью Map / Filter / Reduce: общий принцип и специфика параллельной реализации обработки данных в Dask.Bag.
 
 ## TL;DR
-**Map / Filter / Reduce** — фундаментальные операции функциональной обработки коллекций. **Map** $f: A\to B$ применяет функцию к каждому элементу. **Filter** $p: A\to\{T, F\}$ оставляет элементы по предикату. **Reduce** (fold) сворачивает коллекцию ассоциативным оператором $\oplus$ к одному значению. Эти операции **легко распараллеливаются**, особенно если $f, p$ чистые и $\oplus$ ассоциативна и коммутативна. **Dask.Bag** — Python-аналог: отложенно вычисляемая коллекция объектов на разделах (partitions), `bag.map(f)`, `bag.filter(p)`, `bag.fold(combine, binop, initial)`, `bag.foldby` (groupby+reduce), параллельное исполнение через task-граф.
+**Map / Filter / Reduce** — фундаментальные операции функциональной обработки коллекций. **Map** $f: A\to B$ применяет функцию к каждому элементу. **Filter** $p: A\to\{T, F\}$ оставляет элементы по предикату. **Reduce** (fold) сворачивает коллекцию ассоциативным оператором $\oplus$ к одному значению. Эти операции **легко распараллеливаются**, особенно если $f, p$ чистые и $\oplus$ ассоциативна и коммутативна. **Dask.Bag** — Python-аналог: отложенно вычисляемая коллекция объектов на разделах (partitions), `bag.map(f)`, `bag.filter(p)`, `bag.fold(binop, combine=None, initial=...)`, `bag.foldby` (groupby+reduce), параллельное исполнение через task-граф.
 
 ## Развёрнуто
 
@@ -52,7 +52,7 @@ b = db.read_text("logs/*.txt", blocksize="64MB")
 - `b.filter(p)` — оставить элементы с $p(x)=$True.
 - `b.flatten()` — расплющить (если каждый элемент — итерируемое).
 - `b.distinct()` — уникальные.
-- `b.fold(binop, initial=...)` или `b.reduction(perpartition, aggregate)` — reduce; нужны ассоциативность.
+- `b.fold(binop, combine=None, initial=...)` или `b.reduction(perpartition, aggregate)` — reduce; `binop` сворачивает элементы внутри partition, `combine` объединяет промежуточные результаты.
 - `b.groupby(key)` — группировка (тяжёлая операция, требует shuffle).
 - `b.foldby(key, binop, initial)` — groupby + reduce, эффективнее `groupby + map`.
 - `b.compute()` — запустить вычисление и получить результат как обычный Python-объект.
@@ -90,7 +90,7 @@ import dask.bag as db
 b = db.read_text("books/*.txt")
 words = b.str.lower().str.split().flatten()
 counts = words.frequencies()
-top10 = counts.topk(10, key=1)
+top10 = counts.topk(10, key=lambda kv: kv[1])
 print(top10.compute())
 ```
 

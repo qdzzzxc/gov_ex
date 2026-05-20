@@ -5,6 +5,21 @@
 
 ## Решение
 
+### Программа минимум
+
+```python
+import numpy as np, matplotlib.pyplot as plt
+x = np.linspace(-4, 4, 300); rng = np.random.default_rng(1)
+data = [rng.normal(0,1,10000), rng.uniform(0,1,10000), rng.exponential(1,10000)]  # выборки
+pdfs = [np.exp(-x*x/2)/np.sqrt(2*np.pi), (x>=0)&(x<=1), np.exp(-x)*(x>=0)]       # плотности
+for i in range(3):
+    plt.figure(); plt.hist(data[i], bins=50, density=True, alpha=.5)             # гистограмма
+    plt.plot(x, pdfs[i])                                                         # теория
+plt.show()
+```
+
+### Полное решение
+
 ### Идея
 По 10 000 случайных величин для трёх распределений: $\mathcal{N}(0, 1)$, $U(0, 1)$, $\mathrm{Exp}(\lambda = 1)$. На каждой картинке — гистограмма с `density=True` (площадь = 1) и поверх — теоретическая плотность $p(x)$.
 

@@ -11,6 +11,21 @@
 
 ## Решение
 
+### Программа минимум
+
+```python
+import numpy as np, pandas as pd
+rng = np.random.default_rng(1)
+df1 = pd.DataFrame({"report": rng.integers(1, 11, 4), "sales": rng.integers(100, 1001, 4)},
+                   index=["Moscow","Tula","Yaroslavl","Tver"])
+df2 = pd.DataFrame({"report": rng.integers(1, 11, 4), "sales": rng.integers(100, 1001, 4)},
+                   index=["Moscow","Tula","Volgograd","Novgorod"])
+total = df1.add(df2, fill_value=0).astype(int)               # сумма по индексам
+print(total, total.sum(), sep="\n")
+```
+
+### Полное решение
+
 ### Идея
 - Создаём два датафрейма с заданными индексами (городами) и случайными значениями `report` ∈ $[1, 10]$, `sales` ∈ $[100, 1000]$.
 - `df1.add(df2, fill_value=0)` суммирует по совпадающим индексам и подставляет значение из второго DF (или 0) для несовпадающих.

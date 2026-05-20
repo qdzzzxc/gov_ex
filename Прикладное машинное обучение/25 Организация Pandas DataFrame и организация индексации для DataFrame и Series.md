@@ -10,7 +10,7 @@
 import pandas as pd
 s = pd.Series([10, 20, 30], index=['a', 'b', 'c'], name='score')
 ```
-- `s.values` — NumPy-массив значений;
+- `s.to_numpy()` — получить NumPy-представление значений; `s.array` — базовый ExtensionArray для расширенных типов;
 - `s.index` — объект `Index`;
 - `s['a']` — доступ по метке;
 - `s.iloc[0]` — позиционно;
@@ -65,7 +65,7 @@ df.swaplevel().sort_index()
 - арифметика и сравнения — поэлементно по меткам;
 - `df['z'] = df['x'] + df['y']` — добавление столбца;
 - `df.apply(f, axis=0/1)` — применить функцию к столбцу/строке;
-- `df.applymap(f)` — поэлементно;
+- `df.map(f)` — поэлементно (`applymap` в современных Pandas устарел);
 - `df['col'].map(d)` — замена значений по словарю или функции.
 
 ### GroupBy: split–apply–combine
@@ -106,7 +106,7 @@ df.groupby(['city', 'gender'])['salary'].mean()
 ```python
 def range_(s): return s.max() - s.min()
 g['age'].agg(range_)
-g.agg(min_age=('age', 'min'), avg_salary=('salary', 'mean'))   # NamedAgg
+g.agg(min_age=('age', 'min'), avg_age=('age', 'mean'))   # NamedAgg
 ```
 
 ### Реализация split–apply–combine
