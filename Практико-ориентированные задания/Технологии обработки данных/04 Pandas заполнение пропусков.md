@@ -5,6 +5,20 @@
 
 ## Решение
 
+### Программа минимум
+
+```python
+import numpy as np, pandas as pd
+df = pd.DataFrame({"col1":[1,np.nan,3], "col2":[4,np.nan,6], "col3":["a",None,"a"]})
+print(df.isna().sum())                             # число пропусков по столбцам
+df["col1"] = df["col1"].fillna(df["col1"].mean())  # среднее
+df["col2"] = df["col2"].fillna(df["col2"].median())# медиана
+df["col3"] = df["col3"].fillna(df["col3"].mode()[0]) # мода
+print(df)
+```
+
+### Полное решение
+
 ### Идея
 - `col1`: числовой → среднее (`.mean()`);
 - `col2`: числовой → медиана (`.median()`);

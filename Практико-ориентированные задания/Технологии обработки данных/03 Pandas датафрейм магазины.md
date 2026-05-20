@@ -7,6 +7,22 @@
 
 ## Решение
 
+### Программа минимум
+
+```python
+import numpy as np, pandas as pd
+rng = np.random.default_rng(1)
+dates = pd.date_range(pd.Timestamp.today().normalize(), periods=4).repeat([3, 3, 2, 2])  # повторы <= 3
+def make_df():
+    return pd.DataFrame({"Дата": dates, "Магазин": rng.choice(["A","B","C"], 10),
+                         "Город": rng.choice(["Москва","Санкт-Петербург"], 10),
+                         "Выручка": abs(rng.normal(150_000, 25_000, 10))})
+df = pd.concat([make_df(), make_df()], ignore_index=True)        # объединяем 2 таблицы
+print(df.groupby("Магазин")["Выручка"].mean())                   # средняя выручка
+```
+
+### Полное решение
+
 ### Идея
 1. Сгенерировать два датафрейма по 10 строк со случайными датами (с ограничением «не более 3 повторов одной даты»), магазинами из 3-х вариантов, городами из 2-х, выручкой $\sim |\mathcal{N}(150\,000,\, 25\,000)|$.
 2. Объединить их через `pd.concat`.

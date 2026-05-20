@@ -7,6 +7,21 @@
 
 ## Решение
 
+### Программа минимум
+
+```python
+import numpy as np, matplotlib.pyplot as plt
+from sklearn.linear_model import LogisticRegression
+rng = np.random.default_rng(0)
+X = np.r_[rng.normal([55,55], 12, (50,2)), rng.normal([75,75], 12, (50,2))]  # 2 класса
+y = np.r_[np.zeros(50), np.ones(50)]
+clf = LogisticRegression().fit(X, y)                                        # линейная граница
+plt.scatter(X[:,0], X[:,1], c=y); print(clf.coef_, clf.intercept_)
+plt.show()
+```
+
+### Полное решение
+
 ### Идея и выбор модели
 - Признаков всего 2, классов — 2, граница на глаз почти линейная — значит, имеет смысл взять **линейный классификатор**.
 - Базовый выбор — **логистическая регрессия (logistic regression)**:
@@ -40,6 +55,7 @@ plt.contour(xx, yy, Z, levels=[0.5], colors="k", linewidths=2)
 plt.scatter(*X0.T, c="gold", edgecolor="k", label="Not admitted")
 plt.scatter(*X1.T, c="black", label="Admitted")
 plt.xlabel("Exam 1"); plt.ylabel("Exam 2"); plt.legend()
+plt.show()
 ```
 
 ### Прогон
