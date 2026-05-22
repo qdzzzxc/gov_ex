@@ -34,7 +34,7 @@
 **Особенность:** документ держится **полностью в памяти**. Для огромных файлов — ограничение.
 
 ### DOM vs SAX
-||DOM|SAX|
+|Аспект|DOM|SAX|
 |---|---|---|
 |Структура|дерево в памяти|поток событий через callback'и|
 |Память|весь документ|константа|
@@ -79,7 +79,7 @@ soup = BeautifulSoup(xml_text, "xml")  # или "html.parser", "lxml"
 - **Web scraping**: BeautifulSoup + requests; динамика — Selenium/Playwright.
 
 ### XML vs JSON
-||XML|JSON|
+|Аспект|XML|JSON|
 |---|---|---|
 |Атрибуты|да|нет|
 |Namespace|да|нет|
