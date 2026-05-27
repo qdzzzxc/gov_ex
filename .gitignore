@@ -19,3 +19,5 @@ Thumbs.db
 .vscode/
 *.swp
 notebooks/
+# Quartz (клон генератора сайта, не часть vault)
+quartz/

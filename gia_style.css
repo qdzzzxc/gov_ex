@@ -1,0 +1,34 @@
+html { font-size: 17px; }
+body {
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 1.2rem 1rem 4rem;
+  line-height: 1.6;
+  text-align: left;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+h1, h2, h3, h4 {
+  line-height: 1.25;
+  text-wrap: balance;
+  hyphens: none;
+  overflow-wrap: break-word;
+  margin-top: 1.6em;
+}
+h1 { font-size: 1.5rem; border-bottom: 2px solid #ccc; padding-bottom: .3rem; }
+h2 { font-size: 1.25rem; border-bottom: 1px solid #e0e0e0; padding-bottom: .2rem; }
+h3 { font-size: 1.08rem; }
+h4 { font-size: 1rem; color: #444; }
+nav#TOC { hyphens: none; }
+nav#TOC a { text-decoration: none; }
+nav#TOC ul { line-height: 1.4; }
+code, pre { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+pre { background: #f5f5f5; padding: .8rem; border-radius: 6px; overflow-x: auto; }
+math { font-size: 1.02em; }
+@media (prefers-color-scheme: dark) {
+  body { background: #1a1a1a; color: #e0e0e0; }
+  h1 { border-color: #444; } h2 { border-color: #333; }
+  h4 { color: #aaa; } pre { background: #262626; }
+  a { color: #6db3f2; }
+}
